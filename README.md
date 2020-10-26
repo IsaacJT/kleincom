@@ -11,7 +11,7 @@ The latest release can be downloaded from:
 
 As its name suggests, *kleincom* is a minimal dumb-terminal emulation
 program. It is, in principle, very much like minicom, only it's "klein"
-instead of "pico"!
+(German for small) instead of "pico"!
 
 It was designed to serve as a simple, manual, modem configuration,
 testing, and debugging tool. It has also served (quite well) as a
