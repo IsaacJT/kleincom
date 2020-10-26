@@ -9,7 +9,7 @@ LD = $(CC)
 LDFLAGS ?= -g
 LDLIBS ?=
 
-all: picocom
+all: kleincom
 OBJS =
 
 ## This is the maximum size (in bytes) the output (e.g. copy-paste)
@@ -31,7 +31,7 @@ CPPFLAGS += -DUSE_FLOCK
 #CPPFLAGS += -DUUCP_LOCK_DIR=\"$(UUCP_LOCK_DIR)\"
 
 ## Comment these out to disable "linenoise"-library support
-HISTFILE = .picocom_history
+HISTFILE = .kleincom_history
 CPPFLAGS += -DHISTFILE=\"$(HISTFILE)\" \
 	    -DLINENOISE
 OBJS += linenoise-1.0/linenoise.o
@@ -53,11 +53,11 @@ ifeq ($(shell uname), Linux)
 CPPFLAGS += -DINOTIFY_SUPPORT
 endif
 
-OBJS += picocom.o term.o fdio.o split.o custbaud.o termios2.o custbaud_bsd.o
-picocom : $(OBJS)
+OBJS += kleincom.o term.o fdio.o split.o custbaud.o termios2.o custbaud_bsd.o
+kleincom : $(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
 
-picocom.o : picocom.c term.h fdio.h split.h custbaud.h
+kleincom.o : kleincom.c term.h fdio.h split.h custbaud.h
 term.o : term.c term.h termios2.h custbaud_bsd.h custbaud.h
 split.o : split.c split.h
 fdio.o : fdio.c fdio.h
@@ -69,17 +69,17 @@ custbaud.o : custbaud.c custbaud.h
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 
-doc : picocom.1.html picocom.1 picocom.1.pdf
+doc : kleincom.1.html kleincom.1 kleincom.1.pdf
 
-picocom.1 : picocom.1.md
+kleincom.1 : kleincom.1.md
 	sed 's/\*\*\[/\*\*/g;s/\]\*\*/\*\*/g' $? \
 	| pandoc -s -t man \
-	    -Vfooter="Picocom $(VERSION)" -Vdate="`date -I`" \
+	    -Vfooter="kleincom $(VERSION)" -Vdate="`date -I`" \
 	    -Vadjusting='l' \
 	    -Vhyphenate='' \
 	    -o $@
 
-picocom.1.html : picocom.1.md
+kleincom.1.html : kleincom.1.md
 	pandoc -s -t html \
 	    --template ~/.pandoc/tmpl/manpage.html \
 	    -c ~/.pandoc/css/normalize-noforms.css \
@@ -88,22 +88,22 @@ picocom.1.html : picocom.1.md
 	    -Vversion="v$(VERSION)" -Vdate="`date -I`" \
 	    -o $@ $?
 
-picocom.1.pdf : picocom.1
+kleincom.1.pdf : kleincom.1
 	groff -man -Tpdf $? > $@
 
 
 clean:
-	rm -f picocom.o term.o fdio.o split.o
+	rm -f kleincom.o term.o fdio.o split.o
 	rm -f linenoise-1.0/linenoise.o
 	rm -f custbaud.o termios2.o custbaud_bsd.o
 	rm -f *~
 	rm -f \#*\#
 
 distclean: clean
-	rm -f picocom
+	rm -f kleincom
 
 realclean: distclean
-	rm -f picocom.1
-	rm -f picocom.1.html
-	rm -f picocom.1.pdf
+	rm -f kleincom.1
+	rm -f kleincom.1.html
+	rm -f kleincom.1.pdf
 	rm -f CHANGES

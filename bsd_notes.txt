@@ -1,5 +1,5 @@
 
-Notes about running picocom on BSD-based OSes
+Notes about running kleincom on BSD-based OSes
 =============================================
 
 by Joe Merten (https://github.com/JoeMerten)
@@ -16,9 +16,9 @@ Test environment
 - macOS 10.12 Sierra (native on Macbook Pro)
 - Kubuntu 16.04 (native on Macbook Pro)
 - all above on Intel x86 64 Bit
-  
+
 - Cygwin 5.1 on Windows XP 32 Bit host
-  
+
 - Ftdi FT232R, max 1MBaud (chip can 3MBaud, but hw rs232 level shifter
   is specified for just 1MBaud)
 - Prolific PL2303, max 230kBaud (chip can 12MBaud, but hw rs232 level
@@ -27,7 +27,7 @@ Test environment
   Just minor testing with this uart, because it seems that it don't
   supports non standard baudrates.
 
-For Cygwin, I'd just checked if it will build and ran `picocom
+For Cygwin, I'd just checked if it will build and ran `kleincom
 -h`. I'd personally failed opening a serial port within Cygwin.
 Note that for Cygwin it needs to implement a `cfmakeraw()`
 replacement. See also:
@@ -128,4 +128,3 @@ Dragonfly
   /dev/ttyU0: Invalid argument".
 - Custom baudrates with Prolific adapter has the same issue as in
   FreeBsd.
-

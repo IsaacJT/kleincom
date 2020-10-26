@@ -1,4 +1,4 @@
 #!/bin/sh
-exec picocom \
+exec kleincom \
     --send-cmd="sb -b -vv" \
     --receive-cmd="rb -b -E -vv" "$@"

@@ -1,13 +1,15 @@
-# picocom
-Minimal dumb-terminal emulator
+# kleincom
+Minimal dumb-terminal emulator forked from picocom
 
-by Nick Patavalis (npat@efault.net)
+forked by Isaac True <isaac@is.having.coffee>
+
+picocom by Nick Patavalis (npat@efault.net)
 
 The latest release can be downloaded from:
 
-> https://github.com/npat-efault/picocom/releases
+> https://github.com/IsaacJT/kleincom/releases
 
-As its name suggests, *picocom* is a minimal dumb-terminal emulation
+As its name suggests, *kleincom* is a minimal dumb-terminal emulation
 program. It is, in principle, very much like minicom, only it's "pico"
 instead of "mini"!
 
@@ -19,17 +21,17 @@ many other similar tasks. It can be used in embedded systems, since
 its memory footprint is rather small (approximately 40K, when stripped
 and minimally configured).
 
-*Picocom* runs and is primarily tested on Linux. With no, or with
+*kleincom* runs and is primarily tested on Linux. With no, or with
 minor, modifications it will run (and most of its features will work)
 on any Unix-like system with a reasonably POSIX-compatible termios(3)
 interface. Patches to support idiosyncrasies of specific Unix-like
 operating systems are very welcome.
 
-For a description of picocom's operation, its command line options,
+For a description of kleincom's operation, its command line options,
 and usage examples, see the manual page included in the source
-distribution as "picocom.1", and also html-ized as "picocom.1.html".
+distribution as "kleincom.1", and also html-ized as "kleincom.1.html".
 
-People who have contributed to picocom, by offering feature
+People who have contributed to kleincom, by offering feature
 implementations, bug-fixes, corrections, and suggestions are listed in
 the "CONTRIBUTORS" file.
 
@@ -39,29 +41,29 @@ address shown at the top of this file.
 
 ## Compilation / Installation
 
-Change into picocom's source directory and say:
+Change into kleincom's source directory and say:
 
     make
 
-This will be enough to compile picocom for most modern Unix-like
+This will be enough to compile kleincom for most modern Unix-like
 systems. If you want, you can then strip the resulting binary like
 this:
 
-    strip picocom
+    strip kleincom
 
 Striping the binary is not required, it just reduces its size by a few
-kilobytes. Then you can copy the picocom binary, as well as the
+kilobytes. Then you can copy the kleincom binary, as well as the
 man-page, to wherever you put your binaries and man-pages. For
 example:
 
 
-    cp picocom ~/bin
-    cp picocom.1 ~/man/man1
+    cp kleincom ~/bin
+    cp kleincom.1 ~/man/man1
 
-Again, this is not strictly necessary. You can run picocom and read
+Again, this is not strictly necessary. You can run kleincom and read
 its man-page directly from the source directory.
 
-If something goes wrong and picocom can't compile cleanly, or if it's
+If something goes wrong and kleincom can't compile cleanly, or if it's
 lacking a feature you need, take a look at the included Makefile. It's
 very simple and easy to understand. It allows you to select
 compile-time options and enable or disable some compile-time features
@@ -82,7 +84,7 @@ system. For example:
 Alternatively, you might have to make some trivial edits to the
 Makefile for it to work with your system's make(1) command.
 
-## Using picocom
+## Using kleincom
 
 If your computer is a PC and has the standard on-board RS-233 ports
 (usually accessible as two male DB9 connectors at the back) then under
@@ -97,25 +99,25 @@ you will have to consult their documentation as to how the serial port
 device nodes are named.  Lets assume your serial port is accessed
 through a device node named `/dev/ttyS0`.
 
-You can start picocom with its default option values (default serial
+You can start kleincom with its default option values (default serial
 port settings) like this:
 
-    picocom /dev/ttyS0
+    kleincom /dev/ttyS0
 
-If you have not installed the picocom binary to a suitable place, then
+If you have not installed the kleincom binary to a suitable place, then
 you can run it directly from the source distribution directory like
 this:
 
-    ./picocom /dev/ttyS0
+    ./kleincom /dev/ttyS0
 
 If this fails with a message like:
 
     FATAL: cannot open /dev/ttyS0: Permission denied
 
 This means that you do not have permissions to access the serial
-port's device node. To overcome this you can run picocom as root:
+port's device node. To overcome this you can run kleincom as root:
 
-    sudo picocom /dev/ttyS0
+    sudo kleincom /dev/ttyS0
 
 Alternatively, and preferably, you can add yourself to the user-group
 that your system has for allowing access to serial ports. For most
@@ -129,21 +131,21 @@ You will need to log-out and then log-in back again for this change to
 take effect.
 
 You can explicitly set one or more of the serial port settings to the
-desired values using picocom's command line options. For example, to
+desired values using kleincom's command line options. For example, to
 set the baud-rate to 115200bps (the default is 9600bps), and enable
 hardware flow-control (RTS/CTS handshake) you can say:
 
-    picocom -b 115200 -f h /dev/ttyS0
+    kleincom -b 115200 -f h /dev/ttyS0
 
 or:
 
-    picocom --baud 115200 --flow h /dev/ttyS0
+    kleincom --baud 115200 --flow h /dev/ttyS0
 
-To see all available options run picocom like this:
+To see all available options run kleincom like this:
 
-    picocom --help
+    kleincom --help
 
-Once picocom starts, it initializes the serial port and prints the
+Once kleincom starts, it initializes the serial port and prints the
 message:
 
     Terminal is ready
@@ -153,10 +155,10 @@ every character received from the serial port is sent ro your
 terminal.  Including control and special characters. Assuming that
 there is nothing connected to the other end of your serial port, to
 respond to the characters you send to it (e.g. echo them back to you),
-then nothing that you type in picocom will appear on your
+then nothing that you type in kleincom will appear on your
 terminal. This is normal.
 
-To exit picocom you have to type:
+To exit kleincom you have to type:
 
     C-a, C-x
 
@@ -166,44 +168,44 @@ pressing (and releasing) the [A] key and then pressing (and releasing)
 the [X] key (while you still keep [Control] held down).
 
 This `C-a` is called the "escape character". It is used to inform
-picocom that the next character typed is to be interpreted as a
-command to picocom itself (in this case the exit command) and not to
+kleincom that the next character typed is to be interpreted as a
+command to kleincom itself (in this case the exit command) and not to
 be sent-down to the serial port. There are several other commands
 (other than `C-a`, `C-x`), all prefixed by `C-a`.
 
-Next you should take a look at the very detailed picocom manual
+Next you should take a look at the very detailed kleincom manual
 page. It can be accessed like this (assuming you are inside the
-picocom distribution source directory):
+kleincom distribution source directory):
 
-    man ./picocom.1
+    man ./kleincom.1
 
 or (assuming you have installed the manual page to a suitable place):
 
-    man picocom
+    man kleincom
 
-Thanks for using picocom
+Thanks for using kleincom
 
 ## Custom Bash completion
 
-Starting with release 3.2, picocom includes support for custom
+Starting with release 3.2, kleincom includes support for custom
 Bash-shell completion. With this you can press the [TAB] key, and the
 bash shell will complete command-line option names and values and
 propose valid selections for both. This makes the experience of using
-picocom more pleasant.
+kleincom more pleasant.
 
 Custom completion works only with recent versions of the Bash shell
 (>= 4.3). *It is in no way mandatory in order to use
-picocom*. Here's how you can enable it, if you wish.
+kleincom*. Here's how you can enable it, if you wish.
 
 To manually enable custom completion support you need to source the
 file (custom completion script):
 
-    <picocom source dir>/bash_completion/picocom
+    <kleincom source dir>/bash_completion/kleincom
 
-Assuming you are inside the picocom source directory, you can do it
+Assuming you are inside the kleincom source directory, you can do it
 like this:
 
-    . ./bash_completion/picocom
+    . ./bash_completion/kleincom
 
 This will enable custom completion support for the current shell
 session only. Use it for a while and see if you like it.
@@ -219,15 +221,15 @@ the following options:
        /etc/bash_completion.d/
 
    Obviously, you need to be root to do this. Assuming you are inside
-   the picocom source directory, something like this will do it:
+   the kleincom source directory, something like this will do it:
 
-       sudo cp ./bash_completion/picocom /etc/bash_completion.d/
+       sudo cp ./bash_completion/kleincom /etc/bash_completion.d/
 
-   This will enable custom completion support for picocom, globaly
+   This will enable custom completion support for kleincom, globaly
    (for all Bash-shell users).
 
-   *NOTICE:* If you have another version of picocom already installed,
-   there may already be a `picocom` completion script in
+   *NOTICE:* If you have another version of kleincom already installed,
+   there may already be a `kleincom` completion script in
    `/etc/bash_completion.d`. The command above will obviously
    overwrite it with the new one. So be careful if this is not what
    you want.
@@ -245,10 +247,10 @@ the following options:
 
        mkdir ~/.bash_completion.d
 
-   Copy the picocom completion script to the directory you
-   created. Assuming you are inside the picocom source directory:
+   Copy the kleincom completion script to the directory you
+   created. Assuming you are inside the kleincom source directory:
 
-       cp ./bash_completion/picocom ~/.bash_completion.d
+       cp ./bash_completion/kleincom ~/.bash_completion.d
 
    Add the following (or similar) to the end of your `.bashrc`
 
@@ -265,7 +267,7 @@ the following options:
 
 ## A low-tech terminal server
 
-You can use *picocom* to patch-together a very simple, *very
+You can use *kleincom* to patch-together a very simple, *very
 low-tech*, terminal server.
 
 The situation is like this: You have, in your lab, a box with several
@@ -276,14 +278,14 @@ access these console ports remotely.
 If you provide shell-access to termbox for your users, then it's as
 simple as having the users say (from their remote workstations):
 
-    $ ssh -t user@termbox picocom -b 115200 /dev/ttyS0
+    $ ssh -t user@termbox kleincom -b 115200 /dev/ttyS0
 
 Or make a convenient script/alias for this. Remember the `-t` switch
-which instructs ssh to create a pseudo-tty, otherwise picocom won't
+which instructs ssh to create a pseudo-tty, otherwise kleincom won't
 work.
 
 What if you *don't* want to give users shell-access to termbox? Then
-you can use picocom in a setup like the one described below. Just
+you can use kleincom in a setup like the one described below. Just
 remember, there are countless variations to this theme, the one below
 is just one of them. Also, keep in mind that some of the commands
 shown may have small differences from system to system; more so if you
@@ -305,10 +307,10 @@ home-dir.
     $ cd ~
     $ mkdir bin
 
-Copy the picocom binary in `~termbox/bin` (if you don't have it
+Copy the kleincom binary in `~termbox/bin` (if you don't have it
 globally installed):
 
-    $ cp /path/to/picocom ./bin
+    $ cp /path/to/kleincom ./bin
 
 For every serial port you want to provide access to, create a file
 named after the port and put it in `~termbox/bin`. It should look like
@@ -316,7 +318,7 @@ this:
 
     $ cat ./bin/ttyS0
     #!/bin/sh
-    exec /home/termbox/bin/picocom \
+    exec /home/termbox/bin/kleincom \
       --send-cmd '' \
       --receive-cmd '' \
       -b 115200 \
@@ -330,7 +332,7 @@ Repeat accordingly for every other port. Now the contents of
 `~termbox/bin` should look like this:
 
     $ ls -l ./bin
-    -rwxrwxr-x 1 termbox termbox 102128 Aug 29 13:56 picocom*
+    -rwxrwxr-x 1 termbox termbox 102128 Aug 29 13:56 kleincom*
     -rwxrwxr-x 1 termbox termbox    108 Aug 29 14:07 ttyS0*
     -rwxrwxr-x 1 termbox termbox    108 Aug 29 14:07 ttyS1*
     ... and so on ...
@@ -350,7 +352,7 @@ the script we just wrote (`~termbox/bin/ttyS0`) the login-shell for
 the account. The `-d` option instructs useradd to use `/home/termbox`
 as the user's home directory, and the `-M` switch instructs it *not*
 to create the home-directory. We don't really need a home directory
-for the _ttyS0_ account, since picocom will not read or write any
+for the _ttyS0_ account, since kleincom will not read or write any
 files; but we provide one, regardless, because *some* systems need a
 valid home-directory to cd-into on login (else they choke). We could
 as well have used `/` as the home directory, or we could have let
@@ -373,21 +375,21 @@ connected to termbox's `/dev/ttyS0` port, is:
 Some interesting points:
 
 - If the default port settings you specified as command-line arguments
-  to picocom in `~termbox/bin/ttySx` do not match the settings of the
+  to kleincom in `~termbox/bin/ttySx` do not match the settings of the
   device connected to the port, the user can easily change them from
-  within picocom, using picocom commands.
+  within kleincom, using kleincom commands.
 
 - If a second user tries to remotely access the same port, at the same
-  time, picocom won't let him (picocom will find the port locked and
+  time, kleincom won't let him (kleincom will find the port locked and
   exit).
 
 - In the example `~termbox/bin/ttySx` scripts we have completely
-  disabled the send- and receive-file picocom commands. This
-  guarantees that picocom won't execute any external commands. If you
+  disabled the send- and receive-file kleincom commands. This
+  guarantees that kleincom won't execute any external commands. If you
   want, you can enable the commands by providing specific file-upload
   and file-download programs as the arguments to the `--send-cmd` and
-  `--receive-cmd` picocom command-line options (provided, of-course,
-  that you trust these programs). Picocom (starting with release 2.0)
+  `--receive-cmd` kleincom command-line options (provided, of-course,
+  that you trust these programs). kleincom (starting with release 2.0)
   does not use `/bin/sh` to execute the file-upload and file-download
   programs and *will not* let the user inject shell-commands when
   supplying additional arguments to them.
@@ -405,12 +407,12 @@ variations and elaborations you can try. Be creative!
 
 Custom baudrate support gives you the ability to set arbitrary
 baudrate values (like 1234, or 42000, etc) to a serial port, provided
-that the underlying driver can handle this. Since release 2.0, picocom
+that the underlying driver can handle this. Since release 2.0, kleincom
 can be compiled with custom baudrate support for some systems. Since
-release 3.1 picocom is compiled with support enabled *by default* on
+release 3.1 kleincom is compiled with support enabled *by default* on
 some systems (like Linux, kernels > 2.6, on x86 and x86_64, modern
 Intel Macs, and some BSDs). In any case, you can explicitly ask for
-support to be *enabled* by compiling picocom like this:
+support to be *enabled* by compiling kleincom like this:
 
     CPPFLAGS=-DUSE_CUSTOM_BAUD make clean
     CPPFLAGS=-DUSE_CUSTOM_BAUD make
@@ -424,19 +426,19 @@ compilation will fail. Similarly, you can ask for support to be
 
 (or you can comment in or out the respective lines in the Makefile)
 
-When picocom is compiled with custom baudrate support *on Linux*, it
+When kleincom is compiled with custom baudrate support *on Linux*, it
 uses a new set of ioctl's (`TCGETS2`, `TCSETSF2` vs `TCGETS`,
 `TCSETSF`, etc) to access the serial ports. It is not impossible that
 some systems or some serial devices may not accept these new ioctl's
-(though they should). In order to be able to use picocom even in this
+(though they should). In order to be able to use kleincom even in this
 case, and without recompiling it, you can disable the custom baudrate
-support at runtime, and force picocom to use the "old" ioctls. To do
+support at runtime, and force kleincom to use the "old" ioctls. To do
 this (starting with release 3.2) just define the environment variable
-`NO_CUSTOM_BAUD` before running picocom. Something like this:
+`NO_CUSTOM_BAUD` before running kleincom. Something like this:
 
-    NO_CUSTOM_BAUD=1 picocom ...
+    NO_CUSTOM_BAUD=1 kleincom ...
 
-This only applies to Linux, and to picocom binaries that have been
+This only applies to Linux, and to kleincom binaries that have been
 compiled with custom baudrate support.
 
 To see if your binary has been compiled with custom baudrate support,

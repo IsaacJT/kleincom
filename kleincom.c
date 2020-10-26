@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * picocom.c
+ * kleincom.c
  *
  * simple dumb-terminal program. Helps you manually configure and test
  * stuff like modems, devices w. serial ports, etc.
@@ -90,8 +90,8 @@ const char *flow_str[] = {
 /* printable character to control-key */
 #define CKEY(c) ((c) & 0x1f)
 
-#define KEY_EXIT    CKEY('x') /* exit picocom */
-#define KEY_QUIT    CKEY('q') /* exit picocom without reseting port */
+#define KEY_EXIT    CKEY('x') /* exit kleincom */
+#define KEY_QUIT    CKEY('q') /* exit kleincom without reseting port */
 #define KEY_PULSE   CKEY('p') /* pulse DTR */
 #define KEY_TOG_DTR CKEY('t') /* toggle DTR */
 #define KEY_TOG_RTS CKEY('g') /* toggle RTS */
@@ -1020,10 +1020,10 @@ show_keys()
 {
 #ifndef NO_HELP
     fd_printf(STO, "\r\n");
-    fd_printf(STO, "*** Picocom commands (all prefixed by [C-%c])\r\n",
+    fd_printf(STO, "*** kleincom commands (all prefixed by [C-%c])\r\n",
               KEYC(opts.escape));
     fd_printf(STO, "\r\n");
-    fd_printf(STO, "*** [C-%c] : Exit picocom\r\n",
+    fd_printf(STO, "*** [C-%c] : Exit kleincom\r\n",
               KEYC(KEY_EXIT));
     fd_printf(STO, "*** [C-%c] : Exit without reseting serial port\r\n",
               KEYC(KEY_QUIT));
@@ -1093,7 +1093,7 @@ run_cmd(int fd, const char *cmd, const char *args_extra)
     sigset_t sigm, sigm_old;
     struct sigaction ign_action, old_action;
 
-    /* Picocom ignores SIGINT while the command is running */
+    /* kleincom ignores SIGINT while the command is running */
     ign_action.sa_handler = SIG_IGN;
     sigemptyset (&ign_action.sa_mask);
     ign_action.sa_flags = 0;
@@ -1110,7 +1110,7 @@ run_cmd(int fd, const char *cmd, const char *args_extra)
         fd_printf(STO, "*** cannot fork: %s ***\r\n", strerror(errno));
         return -1;
     } else if ( pid ) {
-        /* father: picocom */
+        /* father: kleincom */
         int status, r;
 
         /* reset the mask */
@@ -1218,7 +1218,7 @@ int tty_q_push(const char *s, int len) {
     return i;
 }
 
-/* Process command key. Returns non-zero if command results in picocom
+/* Process command key. Returns non-zero if command results in kleincom
    exit, zero otherwise. */
 int
 do_command (unsigned char c)
@@ -1496,7 +1496,7 @@ loop(void)
                     } else {
                         /* process command key */
                         if ( do_command(c) )
-                            /* picocom exit */
+                            /* kleincom exit */
                             return LE_CMD;
                     }
                     state = ST_TRANSPARENT;
@@ -1617,7 +1617,7 @@ show_usage(char *name)
     s = strrchr(name, '/');
     s = s ? s+1 : name;
 
-    printf("picocom v%s\n", VERSION_STR);
+    printf("kleincom v%s\n", VERSION_STR);
 
     printf("\nCompiled-in options:\n");
     printf("  TTY_Q_SZ is %d\n", TTY_Q_SZ);
@@ -1977,7 +1977,7 @@ parse_args(int argc, char *argv[])
         return;
 
 #ifndef NO_HELP
-    printf("picocom v%s\n", VERSION_STR);
+    printf("kleincom v%s\n", VERSION_STR);
     printf("\n");
     printf("port is        : %s\n", opts.port);
     printf("flowcontrol    : %s\n", flow_str[opts.flow]);
@@ -2300,7 +2300,7 @@ start_again:
     /* Enter main processing loop */
     ler = loop();
 
-    /* Terminating picocom */
+    /* Terminating kleincom */
     pinfo("\r\n");
     pinfo("Terminating...\r\n");
 
@@ -2314,10 +2314,10 @@ start_again:
         close(tty_fd);
         goto start_again;
     } else if ( ler == LE_SIGNAL ) {
-        pinfo("Picocom was killed\r\n");
+        pinfo("kleincom was killed\r\n");
         xcode = EXIT_FAILURE;
     } else
-        pinfo("Thanks for using picocom\r\n");
+        pinfo("Thanks for using kleincom\r\n");
 
     return xcode;
 }
