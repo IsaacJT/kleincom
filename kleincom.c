@@ -228,7 +228,7 @@ struct {
     int reconnect;
 } opts = {
     .port = NULL,
-    .baud = 9600,
+    .baud = 115200,
     .flow = FC_NONE,
     .parity = P_NONE,
     .databits = 8,
@@ -256,8 +256,8 @@ struct {
     .raise_rts = 0,
     .raise_dtr = 0,
     .quiet = 0,
-    .wait = 0,
-    .reconnect = 0,
+    .wait = 1,
+    .reconnect = 1,
 };
 
 int sig_exit = 0;
