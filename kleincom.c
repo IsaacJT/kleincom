@@ -2141,7 +2141,7 @@ wait_for_file (const char *file)
         if (r == -1) {
             /* Something went wrong */
             r = -errno;
-            goto cleanup;
+            goto cleanup_all;
         } else if (r > 0 && inotify_poll.revents & POLLIN) {
             char buf[1024];
             size_t offset = 0;
@@ -2171,14 +2171,15 @@ found:
         if (!--timeout) {
             /* Took too long - maybe we don't have permission? */
             r = -EACCES;
-            goto cleanup;
+            goto cleanup_all;
         }
     }
     fd_printf(STO, "Found %s\r\n", file);
     r = 0;
+cleanup_all:
+    free(file_copy);
 cleanup:
     free(dir);
-    free(file_copy);
     close(inotify_fd);
     return r;
 #endif
