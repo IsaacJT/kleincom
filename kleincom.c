@@ -393,6 +393,8 @@ uucp_unlock(void)
 
 #define hexisdelim(c) ( strchr(HEXDELIM, (c)) != NULL )
 
+char *autocomplete_common_ports(char *port);
+
 static inline int
 hex2byte (char c)
 {
@@ -1971,6 +1973,8 @@ parse_args(int argc, char *argv[])
     if ( ! opts.port ) {
         fprintf(stderr, "Out of memory\n");
         exit(EXIT_FAILURE);
+    } else {
+        opts.port = autocomplete_common_ports(opts.port);
     }
 
     if ( opts.quiet )
@@ -2023,6 +2027,31 @@ parse_args(int argc, char *argv[])
 }
 
 /**********************************************************************/
+
+char *autocomplete_common_ports(char *port)
+{
+    char test[200];
+    char *tmp = strdup(port);
+    int i = 0;
+
+    /*
+     * Only try autocomplete, if it does not start with a "/". This way we avoid
+     * autocompletion on already complete paths
+     */
+    if (!strncmp(port, "/", 1)) {
+        return port;
+    }
+
+    printf("Port is not an absolute path - trying autocomplete.\n");
+
+    while(tmp[i]) {
+        tmp[i] = toupper(tmp[i]);
+        i++;
+    }
+    sprintf(test, "/dev/tty%s", tmp);
+    printf("what %s\n", test);
+    return strdup(test);
+}
 
 void
 set_dtr_rts (void)
