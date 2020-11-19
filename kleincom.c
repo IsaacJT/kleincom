@@ -2051,7 +2051,7 @@ char *autocomplete_common_ports(char *port)
         i++;
     }
     sprintf(test, "/dev/tty%s", tmp);
-    printf("what %s\n", test);
+    printf("Using port %s.\n", test);
     return strdup(test);
 }
 
