@@ -6,6 +6,8 @@
  * stuff like modems, devices w. serial ports, etc.
  *
  * by Nick Patavalis (npat@efault.net)
+ *    Isaac True (isaac@is.having.coffee)
+ *    Andre Mueller (andremue@protonmail.com)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -2342,6 +2344,7 @@ start_again:
     if (opts.reconnect && ler == LE_RECONNECT) {
         pinfo("read zero bytes from port\r\n");
         close(tty_fd);
+        term_reset(STI);
         goto start_again;
     } else if ( ler == LE_SIGNAL ) {
         pinfo("kleincom was killed\r\n");
